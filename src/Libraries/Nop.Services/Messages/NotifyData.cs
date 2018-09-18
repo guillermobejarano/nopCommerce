@@ -14,11 +14,5 @@
         /// Message text
         /// </summary>
         public string Message;
-
-        /// <summary>
-        /// A value indicating whether a message should be persisted for the next request
-        /// </summary>
-        public bool PersistForTheNextRequest;
-
     }
 }

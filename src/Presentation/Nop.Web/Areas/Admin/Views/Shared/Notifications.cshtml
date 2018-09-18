@@ -1,13 +1,18 @@
-﻿@using Nop.Services.Messages
+﻿@using Newtonsoft.Json
+@using Nop.Services.Messages
 @{
     var successMessages = new List<string>();
     var errorMessages = new List<string>();
     var warningMessages = new List<string>();
-
+    
     //Get messages from TempData
-    if (TempData[NopMessageDefaults.NotificationListKey] is IList<NotifyData>)
+    IList<NotifyData> notes = TempData[NopMessageDefaults.NotificationListKey] != null
+        ? JsonConvert.DeserializeObject<IList<NotifyData>>(TempData[NopMessageDefaults.NotificationListKey].ToString())
+        : null;
+
+    if (notes != null)
     {
-        foreach (var note in (List<NotifyData>)TempData[NopMessageDefaults.NotificationListKey])
+        foreach (var note in notes)
         {
             switch (note.Type)
             {
@@ -20,7 +25,6 @@
                 case NotifyType.Warning:
                     warningMessages.Add(note.Message);
                     break;
-
             }
         }
     }

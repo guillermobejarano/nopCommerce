@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Newtonsoft.Json;
 using Nop.Core;
 using Nop.Services.Logging;
 
@@ -100,22 +101,17 @@ namespace Nop.Services.Messages
         {
             ITempDataDictionary tempData = _tempDataDictionaryFactory.GetTempData(context);
 
-            //If key undefined, create empty list
-            if (tempData[NopMessageDefaults.NotificationListKey] == null)
-                tempData[NopMessageDefaults.NotificationListKey] = new List<NotifyData>();
+            IList<NotifyData> messageList = tempData[NopMessageDefaults.NotificationListKey] != null
+                ? JsonConvert.DeserializeObject<IList<NotifyData>>(tempData[NopMessageDefaults.NotificationListKey].ToString())
+                : new List<NotifyData>();
 
-            //If key already exists, return
-            if (!(tempData[NopMessageDefaults.NotificationListKey] is IList<NotifyData>))
-                return;
-
-            var lst = (IList<NotifyData>)tempData[NopMessageDefaults.NotificationListKey];
-            lst.Add(new NotifyData
+            messageList.Add(new NotifyData
             {
                 Message = message,
                 Type = type
             });
 
-            tempData[NopMessageDefaults.NotificationListKey] = lst;
+            tempData[NopMessageDefaults.NotificationListKey] = JsonConvert.SerializeObject(messageList);
         }
 
         /// <summary>
