@@ -569,12 +569,13 @@ namespace Nop.Plugin.Payments.PayPalStandard
 	            <br />1. Log in to your PayPal account (click <a href=""https://www.paypal.com/us/webapps/mpp/referral/paypal-business-account2?partner_id=9JJPJNNPQ7PZ8"" target=""_blank"">here</a> to create your account).
 	            <br />2. Click the Profile button.
 	            <br />3. Click the Profile and settings button
-	            <br />4. Select the My selling tools item on left menu bar.
+	            <br />4. Select the My selling tools item on left panel.
 	            <br />5. Click Website Preferences Update in the Selling online section.
 	            <br />6. Under Auto Return for Website Payments, click the On radio button.
-	            <br />7. For the Return URL, enter the URL on your site that will receive the transaction ID posted by PayPal after a customer payment ({0}).<br />6. Under Payment Data Transfer, click the On radio button.
-	            <br />8. Scroll down to the Payment Data Transfer section of the page to view your PDT identity token.<br />
-	            <br />9. Click Save.
+	            <br />7. For the Return URL, enter the URL on your site that will receive the transaction ID posted by PayPal after a customer payment ({0}).
+                <br />8. Under Payment Data Transfer, click the On radio button.
+	            <br />9. Scroll down to the Payment Data Transfer section of the page to view your PDT identity token.<br />
+	            <br />10. Click Save.
 	            <br />
             </p>");
             _localizationService.AddOrUpdatePluginLocaleResource("Plugins.Payments.PayPalStandard.PaymentMethodDescription", "You will be redirected to PayPal site to complete the payment");
