@@ -957,13 +957,16 @@ namespace Nop.Web.Areas.Admin.Factories
             var endDateValue = !searchModel.EndDate.HasValue ? null
                 : (DateTime?)_dateTimeHelper.ConvertToUtcTime(searchModel.EndDate.Value, _dateTimeHelper.CurrentTimeZone).AddDays(1);
             var product = _productService.GetProductById(searchModel.ProductId);
+            var warehouseId = product?.WarehouseId;
             var filterByProductId = product != null && (_workContext.CurrentVendor == null || product.VendorId == _workContext.CurrentVendor.Id)
                 ? searchModel.ProductId : 0;
+            var filterByWarehouseId = warehouseId.HasValue ? warehouseId.Value : 0;
 
             //prepare additional model data
             var reportSummary = _orderReportService.GetOrderAverageReportLine(storeId: searchModel.StoreId,
                 vendorId: searchModel.VendorId,
                 productId: filterByProductId,
+                warehouseId: filterByWarehouseId,
                 paymentMethodSystemName: searchModel.PaymentMethodSystemName,
                 osIds: orderStatusIds,
                 psIds: paymentStatusIds,
@@ -979,6 +982,7 @@ namespace Nop.Web.Areas.Admin.Factories
             var profit = _orderReportService.ProfitReport(storeId: searchModel.StoreId,
                 vendorId: searchModel.VendorId,
                 productId: filterByProductId,
+                warehouseId: filterByWarehouseId,
                 paymentMethodSystemName: searchModel.PaymentMethodSystemName,
                 osIds: orderStatusIds,
                 psIds: paymentStatusIds,
