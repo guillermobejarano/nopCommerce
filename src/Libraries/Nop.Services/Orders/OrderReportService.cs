@@ -149,8 +149,26 @@ namespace Nop.Services.Orders
                 query = query.Where(o => o.OrderItems.Any(orderItem => orderItem.Product.VendorId == vendorId));
             if (productId > 0)
                 query = query.Where(o => o.OrderItems.Any(orderItem => orderItem.ProductId == productId));
+
             if (warehouseId > 0)
-                query = query.Where(o => o.OrderItems.Any(orderItem => orderItem.Product.WarehouseId == warehouseId));
+            {
+                var manageStockInventoryMethodId = (int)ManageInventoryMethod.ManageStock;
+                query = query
+                    .Where(o => o.OrderItems
+                    .Any(orderItem =>
+                        //"Use multiple warehouses" enabled
+                        //we search in each warehouse
+                        (orderItem.Product.ManageInventoryMethodId == manageStockInventoryMethodId &&
+                        orderItem.Product.UseMultipleWarehouses &&
+                        orderItem.Product.ProductWarehouseInventory.Any(pwi => pwi.WarehouseId == warehouseId))
+                        ||
+                        //"Use multiple warehouses" disabled
+                        //we use standard "warehouse" property
+                        ((orderItem.Product.ManageInventoryMethodId != manageStockInventoryMethodId ||
+                        !orderItem.Product.UseMultipleWarehouses) &&
+                        orderItem.Product.WarehouseId == warehouseId)));
+            }
+
             if (billingCountryId > 0)
                 query = query.Where(o => o.BillingAddress != null && o.BillingAddress.CountryId == billingCountryId);
             if (!string.IsNullOrEmpty(paymentMethodSystemName))
