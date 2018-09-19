@@ -8,11 +8,11 @@
         /// <summary>
         /// Message type (success/warning/error)
         /// </summary>
-        public NotifyType Type;
+        public NotifyType Type { get; set; }
 
         /// <summary>
         /// Message text
         /// </summary>
-        public string Message;
+        public string Message { get; set; }
     }
 }

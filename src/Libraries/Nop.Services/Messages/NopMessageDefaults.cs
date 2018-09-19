@@ -28,7 +28,7 @@
         public static string MessageTemplatesPatternCacheKey => "Nop.messagetemplate.";
 
         /// <summary>
-        /// Gets a key for notifications list from HttpContext.Items dictionary
+        /// Gets a key for notifications list from TempDataDictionary
         /// </summary>
         public static string NotificationListKey => "NotificationList";
     }

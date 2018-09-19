@@ -7,13 +7,13 @@
     var warningMessages = new List<string>();
 
     //Get messages from TempData
-    IList<NotifyData> notes = TempData[NopMessageDefaults.NotificationListKey] != null
-        ? JsonConvert.DeserializeObject<IList<NotifyData>>(TempData[NopMessageDefaults.NotificationListKey].ToString())
+    var notes = TempData.ContainsKey(NopMessageDefaults.NotificationListKey)
+        ? JsonConvert.DeserializeObject<IList<NotifyData>>(TempData[NopMessageDefaults.NotificationListKey]?.ToString() ?? string.Empty)
         : null;
 
     if (notes != null)
     {
-        foreach (var note in (List<NotifyData>)TempData[NopMessageDefaults.NotificationListKey])
+        foreach (var note in notes)
         {
             switch (note.Type)
             {

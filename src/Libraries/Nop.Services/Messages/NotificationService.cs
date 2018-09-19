@@ -43,7 +43,6 @@ namespace Nop.Services.Messages
         /// Display error notification
         /// </summary>
         /// <param name="message">Message</param>
-        /// <param name="persistForTheNextRequest">A value indicating whether a message should be persisted for the next request</param>
         /// <param name="context">HttpContext</param>
         public virtual void ErrorNotification(string message, HttpContext context = null)
         {
@@ -54,7 +53,6 @@ namespace Nop.Services.Messages
         /// Display error notification
         /// </summary>
         /// <param name="exception">Exception</param>
-        /// <param name="persistForTheNextRequest">A value indicating whether a message should be persisted for the next request</param>
         /// <param name="logException">A value indicating whether exception should be logged</param>
         /// <param name="context">HttpContext</param>
         public virtual void ErrorNotification(Exception exception, bool logException = true, HttpContext context = null)
@@ -69,7 +67,6 @@ namespace Nop.Services.Messages
         /// Display success notification
         /// </summary>
         /// <param name="message">Message</param>
-        /// <param name="persistForTheNextRequest">A value indicating whether a message should be persisted for the next request</param>
         /// <param name="context">HttpContext</param>
         public virtual void SuccessNotification(string message, HttpContext context = null)
         {
@@ -80,7 +77,6 @@ namespace Nop.Services.Messages
         /// Display warning notification
         /// </summary>
         /// <param name="message">Message</param>
-        /// <param name="persistForTheNextRequest">A value indicating whether a message should be persisted for the next request</param>
         /// <param name="context">HttpContext</param>
         public virtual void WarningNotification(string message, HttpContext context = null)
         {
@@ -99,9 +95,8 @@ namespace Nop.Services.Messages
         /// <param name="message">Message</param>
         protected virtual void PrepareTempData(HttpContext context, NotifyType type, string message)
         {
-            ITempDataDictionary tempData = _tempDataDictionaryFactory.GetTempData(context);
-
-            IList<NotifyData> messageList = tempData[NopMessageDefaults.NotificationListKey] != null
+            var tempData = _tempDataDictionaryFactory.GetTempData(context);
+            var messageList = tempData.ContainsKey(NopMessageDefaults.NotificationListKey)
                 ? JsonConvert.DeserializeObject<IList<NotifyData>>(tempData[NopMessageDefaults.NotificationListKey].ToString())
                 : new List<NotifyData>();
 
