@@ -193,25 +193,25 @@ namespace Nop.Services.Orders
                 query = query.Where(o => o.OrderNotes.Any(on => on.Note.Contains(orderNotes)));
 
             var item = (from oq in query
-                group oq by 1
+                        group oq by 1
                 into result
-                select new
-                {
-                    OrderCount = result.Count(),
-                    OrderShippingExclTaxSum = result.Sum(o => o.OrderShippingExclTax),
-                    OrderPaymentFeeExclTaxSum = result.Sum(o => o.PaymentMethodAdditionalFeeExclTax),
-                    OrderTaxSum = result.Sum(o => o.OrderTax),
-                    OrderTotalSum = result.Sum(o => o.OrderTotal),
-                    OrederRefundedAmountSum = result.Sum(o => o.RefundedAmount),
-                }).Select(r => new OrderAverageReportLine
-                    {
-                        CountOrders = r.OrderCount,
-                        SumShippingExclTax = r.OrderShippingExclTaxSum,
-                        OrderPaymentFeeExclTaxSum = r.OrderPaymentFeeExclTaxSum,
-                        SumTax = r.OrderTaxSum,
-                        SumOrders = r.OrderTotalSum,
-                        SumRefundedAmount = r.OrederRefundedAmountSum
-                }).FirstOrDefault();
+                        select new
+                        {
+                            OrderCount = result.Count(),
+                            OrderShippingExclTaxSum = result.Sum(o => o.OrderShippingExclTax),
+                            OrderPaymentFeeExclTaxSum = result.Sum(o => o.PaymentMethodAdditionalFeeExclTax),
+                            OrderTaxSum = result.Sum(o => o.OrderTax),
+                            OrderTotalSum = result.Sum(o => o.OrderTotal),
+                            OrederRefundedAmountSum = result.Sum(o => o.RefundedAmount),
+                        }).Select(r => new OrderAverageReportLine
+                        {
+                            CountOrders = r.OrderCount,
+                            SumShippingExclTax = r.OrderShippingExclTaxSum,
+                            OrderPaymentFeeExclTaxSum = r.OrderPaymentFeeExclTaxSum,
+                            SumTax = r.OrderTaxSum,
+                            SumOrders = r.OrderTotalSum,
+                            SumRefundedAmount = r.OrederRefundedAmountSum
+                        }).FirstOrDefault();
 
             item = item ?? new OrderAverageReportLine
             {
@@ -524,6 +524,9 @@ namespace Nop.Services.Orders
             if (ssIds != null && ssIds.Any())
                 orders = orders.Where(o => ssIds.Contains(o.ShippingStatusId));
 
+
+            var manageStockInventoryMethodId = (int)ManageInventoryMethod.ManageStock;
+
             var query = from orderItem in _orderItemRepository.Table
                         join o in orders on orderItem.OrderId equals o.Id
                         where (storeId == 0 || storeId == o.StoreId) &&
@@ -535,7 +538,18 @@ namespace Nop.Services.Orders
                               !o.Deleted &&
                               (vendorId == 0 || orderItem.Product.VendorId == vendorId) &&
                               (productId == 0 || orderItem.ProductId == productId) &&
-                              (warehouseId == 0 || orderItem.Product.WarehouseId == warehouseId) &&
+                              (
+                                warehouseId == 0
+                                ||
+                                (orderItem.Product.ManageInventoryMethodId == manageStockInventoryMethodId &&
+                                orderItem.Product.UseMultipleWarehouses &&
+                                orderItem.Product.ProductWarehouseInventory.Any(pwi => pwi.WarehouseId == warehouseId))
+                                ||
+                                //"Use multiple warehouses" disabled
+                                //we use standard "warehouse" property
+                                (orderItem.Product.ManageInventoryMethodId != manageStockInventoryMethodId ||
+                                !orderItem.Product.UseMultipleWarehouses)
+                              ) &&
                               //we do not ignore deleted products when calculating order reports
                               //(!p.Deleted)
                               (dontSearchPhone || (o.BillingAddress != null && !string.IsNullOrEmpty(o.BillingAddress.PhoneNumber) && o.BillingAddress.PhoneNumber.Contains(billingPhone))) &&
