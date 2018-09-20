@@ -1,6 +1,6 @@
 ﻿@using System.Text.Encodings.Web
-@using Newtonsoft.Json
 @using Nop.Services.Messages
+@using Newtonsoft.Json
 @{
     var successMessages = new List<string>();
     var errorMessages = new List<string>();
@@ -8,7 +8,7 @@
 
     //Get messages from TempData
     var notes = TempData.ContainsKey(NopMessageDefaults.NotificationListKey)
-        ? JsonConvert.DeserializeObject<IList<NotifyData>>(TempData[NopMessageDefaults.NotificationListKey]?.ToString() ?? string.Empty)
+        ? JsonConvert.DeserializeObject<IList<NotifyData>>(TempData[NopMessageDefaults.NotificationListKey].ToString())
         : null;
 
     if (notes != null)

@@ -96,6 +96,8 @@ namespace Nop.Services.Messages
         protected virtual void PrepareTempData(HttpContext context, NotifyType type, string message)
         {
             var tempData = _tempDataDictionaryFactory.GetTempData(context);
+            
+            //Messages have stored in a serialized list
             var messageList = tempData.ContainsKey(NopMessageDefaults.NotificationListKey)
                 ? JsonConvert.DeserializeObject<IList<NotifyData>>(tempData[NopMessageDefaults.NotificationListKey].ToString())
                 : new List<NotifyData>();
