@@ -568,7 +568,7 @@ namespace Nop.Plugin.Payments.PayPalStandard
 	            <br />To use PDT, you must activate PDT and Auto Return in your PayPal account profile. You must also acquire a PDT identity token, which is used in all PDT communication you send to PayPal. Follow these steps to configure your account for PDT:<br />
 	            <br />1. Log in to your PayPal account (click <a href=""https://www.paypal.com/us/webapps/mpp/referral/paypal-business-account2?partner_id=9JJPJNNPQ7PZ8"" target=""_blank"">here</a> to create your account).
 	            <br />2. Click the Profile button.
-	            <br />3. Click the Profile and settings button.
+	            <br />3. Click the Profile and Settings button.
 	            <br />4. Select the My selling tools item on left panel.
 	            <br />5. Click Website Preferences Update in the Selling online section.
 	            <br />6. Under Auto Return for Website Payments, click the On radio button.
