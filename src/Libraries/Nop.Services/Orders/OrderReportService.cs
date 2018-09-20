@@ -193,25 +193,25 @@ namespace Nop.Services.Orders
                 query = query.Where(o => o.OrderNotes.Any(on => on.Note.Contains(orderNotes)));
 
             var item = (from oq in query
-                        group oq by 1
+                group oq by 1
                 into result
-                        select new
-                        {
-                            OrderCount = result.Count(),
-                            OrderShippingExclTaxSum = result.Sum(o => o.OrderShippingExclTax),
-                            OrderPaymentFeeExclTaxSum = result.Sum(o => o.PaymentMethodAdditionalFeeExclTax),
-                            OrderTaxSum = result.Sum(o => o.OrderTax),
-                            OrderTotalSum = result.Sum(o => o.OrderTotal),
-                            OrederRefundedAmountSum = result.Sum(o => o.RefundedAmount),
-                        }).Select(r => new OrderAverageReportLine
-                        {
-                            CountOrders = r.OrderCount,
-                            SumShippingExclTax = r.OrderShippingExclTaxSum,
-                            OrderPaymentFeeExclTaxSum = r.OrderPaymentFeeExclTaxSum,
-                            SumTax = r.OrderTaxSum,
-                            SumOrders = r.OrderTotalSum,
-                            SumRefundedAmount = r.OrederRefundedAmountSum
-                        }).FirstOrDefault();
+                select new
+                {
+                    OrderCount = result.Count(),
+                    OrderShippingExclTaxSum = result.Sum(o => o.OrderShippingExclTax),
+                    OrderPaymentFeeExclTaxSum = result.Sum(o => o.PaymentMethodAdditionalFeeExclTax),
+                    OrderTaxSum = result.Sum(o => o.OrderTax),
+                    OrderTotalSum = result.Sum(o => o.OrderTotal),
+                    OrederRefundedAmountSum = result.Sum(o => o.RefundedAmount),
+                }).Select(r => new OrderAverageReportLine
+                    {
+                        CountOrders = r.OrderCount,
+                        SumShippingExclTax = r.OrderShippingExclTaxSum,
+                        OrderPaymentFeeExclTaxSum = r.OrderPaymentFeeExclTaxSum,
+                        SumTax = r.OrderTaxSum,
+                        SumOrders = r.OrderTotalSum,
+                        SumRefundedAmount = r.OrederRefundedAmountSum
+                }).FirstOrDefault();
 
             item = item ?? new OrderAverageReportLine
             {
@@ -523,7 +523,6 @@ namespace Nop.Services.Orders
                 orders = orders.Where(o => psIds.Contains(o.PaymentStatusId));
             if (ssIds != null && ssIds.Any())
                 orders = orders.Where(o => ssIds.Contains(o.ShippingStatusId));
-
 
             var manageStockInventoryMethodId = (int)ManageInventoryMethod.ManageStock;
 
