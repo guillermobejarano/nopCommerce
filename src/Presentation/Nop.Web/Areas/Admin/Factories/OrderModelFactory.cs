@@ -842,6 +842,9 @@ namespace Nop.Web.Areas.Admin.Factories
             //prepare available vendors
             _baseAdminModelFactory.PrepareVendors(searchModel.AvailableVendors);
 
+            //prepare available warehouses
+            _baseAdminModelFactory.PrepareWarehouses(searchModel.AvailableWarehouses);
+
             //prepare available payment methods
             searchModel.AvailablePaymentMethods = _paymentService.LoadAllPaymentMethods().Select(method =>
                 new SelectListItem { Text = method.PluginDescriptor.FriendlyName, Value = method.PluginDescriptor.SystemName }).ToList();

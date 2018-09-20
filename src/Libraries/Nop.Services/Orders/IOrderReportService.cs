@@ -33,7 +33,7 @@ namespace Nop.Services.Orders
         /// <param name="storeId">Store identifier; pass 0 to ignore this parameter</param>
         /// <param name="vendorId">Vendor identifier; pass 0 to ignore this parameter</param>
         /// <param name="productId">Product identifier which was purchased in an order; 0 to load all orders</param>
-        /// <param name="warehouseId">Warehouse identifier; 0 to load all orders</param>
+        /// <param name="warehouseId">Warehouse identifier; pass 0 to ignore this parameter</param>
         /// <param name="billingCountryId">Billing country identifier; 0 to load all orders</param>
         /// <param name="orderId">Order identifier; pass 0 to ignore this parameter</param>
         /// <param name="paymentMethodSystemName">Payment method system name; null to load all records</param>

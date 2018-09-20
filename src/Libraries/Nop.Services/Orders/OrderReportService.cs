@@ -94,7 +94,7 @@ namespace Nop.Services.Orders
 
             var report = (from oq in query
                           group oq by oq.BillingAddress.CountryId
-                    into result
+                          into result
                           select new
                           {
                               CountryId = result.Key,
@@ -118,7 +118,7 @@ namespace Nop.Services.Orders
         /// <param name="storeId">Store identifier; pass 0 to ignore this parameter</param>
         /// <param name="vendorId">Vendor identifier; pass 0 to ignore this parameter</param>
         /// <param name="productId">Product identifier which was purchased in an order; 0 to load all orders</param>
-        /// <param name="warehouseId">Warehouse identifier which was purchased in an order; 0 to load all orders</param>
+        /// <param name="warehouseId">Warehouse identifier; pass 0 to ignore this parameter</param>
         /// <param name="billingCountryId">Billing country identifier; 0 to load all orders</param>
         /// <param name="orderId">Order identifier; pass 0 to ignore this parameter</param>
         /// <param name="paymentMethodSystemName">Payment method system name; null to load all records</param>
@@ -164,9 +164,9 @@ namespace Nop.Services.Orders
                         ||
                         //"Use multiple warehouses" disabled
                         //we use standard "warehouse" property
-                        ((orderItem.Product.ManageInventoryMethodId != manageStockInventoryMethodId ||
+                        (orderItem.Product.ManageInventoryMethodId != manageStockInventoryMethodId ||
                         !orderItem.Product.UseMultipleWarehouses) &&
-                        orderItem.Product.WarehouseId == warehouseId)));
+                        orderItem.Product.WarehouseId == warehouseId));
             }
 
             if (billingCountryId > 0)
@@ -490,7 +490,7 @@ namespace Nop.Services.Orders
         /// <param name="storeId">Store identifier; pass 0 to ignore this parameter</param>
         /// <param name="vendorId">Vendor identifier; pass 0 to ignore this parameter</param>
         /// <param name="productId">Product identifier which was purchased in an order; 0 to load all orders</param>
-        /// <param name="warehouseId">Warehouse identifier which was purchased in an order; 0 to load all orders</param>
+        /// <param name="warehouseId">Warehouse identifier; pass 0 to ignore this parameter</param>
         /// <param name="orderId">Order identifier; pass 0 to ignore this parameter</param>
         /// <param name="billingCountryId">Billing country identifier; 0 to load all orders</param>
         /// <param name="paymentMethodSystemName">Payment method system name; null to load all records</param>
@@ -548,7 +548,8 @@ namespace Nop.Services.Orders
                                 //"Use multiple warehouses" disabled
                                 //we use standard "warehouse" property
                                 (orderItem.Product.ManageInventoryMethodId != manageStockInventoryMethodId ||
-                                !orderItem.Product.UseMultipleWarehouses)
+                                !orderItem.Product.UseMultipleWarehouses) &&
+                                orderItem.Product.WarehouseId == warehouseId
                               ) &&
                               //we do not ignore deleted products when calculating order reports
                               //(!p.Deleted)
