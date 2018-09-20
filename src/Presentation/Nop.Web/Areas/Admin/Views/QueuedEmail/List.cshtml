@@ -18,7 +18,7 @@
                 @T("Admin.System.QueuedEmails.DeleteSelected")
             </button>
             <nop-action-confirmation asp-button-id="delete-selected" />
-            <button id="delete-all" name="delete-all" class="btn bg-red">
+            <button type="button" id="delete-all" name="delete-all" class="btn bg-red">
                 <i class="fa fa-trash-o"></i>
                 @T("Admin.System.QueuedEmails.DeleteAll")
             </button>
@@ -30,7 +30,7 @@
     <div class="content">
         <div class="form-horizontal">
             <div class="panel-group">
-                <div class="panel panel-default panel-search" id="panel_search">
+                <div class="panel panel-default panel-search">
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -232,14 +232,7 @@
                                     $('.checkboxGroups').attr('checked', false).change();
                                     selectedIds = [];
                                     return false;
-                                });
-                                
-                                $("#panel_search").keypress(function (event) {                                    
-                                    if (event.which == 13 || event.keyCode == 13) {
-                                        $("#search-queuedemails").click();
-                                        return false;
-                                    }
-                                });
+                                });                                
 
                                 $("#@Html.IdFor(model => model.GoDirectlyToNumber)").keydown(function (event) {
                                     if (event.keyCode === 13) {

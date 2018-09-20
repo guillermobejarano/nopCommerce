@@ -22,6 +22,19 @@ $(document).ready(function () {
     $('.multi-store-override-option').each(function (k, v) {
         checkOverriddenStoreValue(v, $(v).attr('data-for-input-selector'));
     });
+
+    $("div.panel-search").keypress(function (event) {
+        if (event.which == 13 || event.keyCode == 13) {
+            $("button.btn-search").click();
+            return false;
+        }
+    });
+
+    $("div[id$='-grid']").keypress(function (event) {
+        if (event.which == 13 || event.keyCode == 13) {
+            return false;
+        }
+    });
 });
 
 function checkAllOverriddenStoreValue(item) {
