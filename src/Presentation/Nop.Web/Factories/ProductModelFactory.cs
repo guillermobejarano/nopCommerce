@@ -597,7 +597,8 @@ namespace Nop.Web.Factories
 
                         model.Price = _priceFormatter.FormatPrice(finalPriceWithoutDiscount);
 
-                        if (finalPriceWithoutDiscountBase != finalPriceWithDiscountBase)
+                        //TODO: check change about theme tutienda
+                        if ((finalPriceWithoutDiscountBase != finalPriceWithDiscountBase) && finalPriceWithDiscount != 0)
                             model.PriceWithDiscount = _priceFormatter.FormatPrice(finalPriceWithDiscount);
 
                         model.PriceValue = finalPriceWithDiscount;

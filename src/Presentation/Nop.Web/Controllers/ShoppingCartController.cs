@@ -606,8 +606,9 @@ namespace Nop.Web.Controllers
                             _localizationService.GetResource("ShoppingCart.HeaderQuantity"),
                             shoppingCarts.Sum(item => item.Quantity));
 
+                       //TODO: check change about theme tutienda
                         var updateflyoutcartsectionhtml = _shoppingCartSettings.MiniShoppingCartEnabled
-                            ? RenderViewComponentToString("FlyoutShoppingCart")
+                            ? RenderViewComponentToString("FlyoutShoppingCartTuTienda")
                             : "";
 
                         return Json(new
@@ -806,9 +807,9 @@ namespace Nop.Web.Controllers
 
                         var updatetopcartsectionhtml = string.Format(_localizationService.GetResource("ShoppingCart.HeaderQuantity"),
                             shoppingCarts.Sum(item => item.Quantity));
-
+                        //TODO: check change about theme tutienda
                         var updateflyoutcartsectionhtml = _shoppingCartSettings.MiniShoppingCartEnabled
-                            ? this.RenderViewComponentToString("FlyoutShoppingCart")
+                            ? this.RenderViewComponentToString("FlyoutShoppingCartTuTienda")
                             : "";
 
                         return Json(new

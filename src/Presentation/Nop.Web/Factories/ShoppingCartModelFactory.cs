@@ -954,6 +954,11 @@ namespace Nop.Web.Factories
                 DisplayShoppingCartButton = true,
                 CurrentCustomerIsGuest = _workContext.CurrentCustomer.IsGuest(),
                 AnonymousCheckoutAllowed = _orderSettings.AnonymousCheckoutAllowed,
+                //TODO: check change about theme tutienda
+                SubTotal = _priceFormatter.FormatPrice(decimal.Zero, false,
+                _workContext.WorkingCurrency,
+                _workContext.WorkingLanguage,
+                false)
             };
 
             //performance optimization (use "HasShoppingCartItems" property)

@@ -1,0 +1,23 @@
+﻿@model SocialModel
+<ul class="social-sharing">
+    @if (!string.IsNullOrEmpty(Model.FacebookLink))
+    {
+        <li><a href="@Model.FacebookLink" target="_blank" class="facebook"></a></li>
+    }
+    @if (!string.IsNullOrEmpty(Model.TwitterLink))
+    {
+        <li><a href="@Model.TwitterLink" target="_blank" class="twitter"></a></li>
+    }
+    @if (Model.NewsEnabled)
+    {
+        <li><a href="@Url.RouteUrl("NewsRSS", new {languageId = Model.WorkingLanguageId})" class="rss"></a></li>
+    }
+    @if (!string.IsNullOrEmpty(Model.YoutubeLink))
+    {
+        <li><a href="@Model.YoutubeLink" target="_blank" class="youtube"></a></li>
+    }
+    @if (!string.IsNullOrEmpty(Model.GooglePlusLink))
+    {
+        <li><a href="@Model.GooglePlusLink" target="_blank" class="google"></a></li>
+    }
+</ul>

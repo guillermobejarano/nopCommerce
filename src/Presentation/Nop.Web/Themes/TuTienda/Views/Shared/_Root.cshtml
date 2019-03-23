@@ -8,15 +8,22 @@
 <div class="master-wrapper-page">
     @await Component.InvokeAsync("AdminHeaderLinks")
     @await Html.PartialAsync("_Header")
+
+    @if (IsSectionDefined("SliderWrapper"))
+    {
+        @RenderSection("SliderWrapper")
+    }
+
     <script asp-location="Footer">
         AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
     </script>
+
     <div class="master-wrapper-content">
         @await Component.InvokeAsync("Widget", new { widgetZone = "content_before" })
 
         @if (IsSectionDefined("Breadcrumb"))
         {
-            @RenderSection("Breadcrumb") 
+            @RenderSection("Breadcrumb")
         }
         <div class="master-column-wrapper">
             @RenderBody()

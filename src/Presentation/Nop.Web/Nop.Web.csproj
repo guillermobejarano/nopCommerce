@@ -40,6 +40,18 @@
 
     <!-- We copy the \Logs directory -->
     <Content Include="Logs\**" CopyToPublishDirectory="PreserveNewest" />
+    <Compile Remove="Themes\TuTiendaStartup.cs" />
+    <Compile Remove="Themes\TuTienda\TuTiendaStartup.cs" />
+    <Compile Remove="Themes\TuTienda\TuTiendaViewLocationExpander.cs" />
+    <Compile Remove="Themes\TuTienda\Views\Catalog\CategoryTemplate.ProductsInGridOrLines.cshtml.cs" />
+    <Compile Remove="Themes\TuTienda\Views\Shared\Components\EstimateShipping\Default.cshtml.cs" />
+    <Compile Remove="Themes\TuTienda\Views\Home\Index.cshtml.cs" />
+    <Compile Remove="Themes\TuTienda\Views\Shared\Components\OrderSummary\Default.cshtml.cs" />
+    <Compile Remove="Themes\TuTienda\Views\Shared\_CategoryLine.TopMenu.cshtml.cs" />
+    <Compile Remove="Themes\TuTienda\Views\Shared\_ProductBox.cshtml.cs" />
+    <Content Remove="Themes\TuTienda\Components\FlyoutShoppingCart.cs" />
+    <Content Remove="Themes\TuTienda\TuTiendaStartup.cs" />
+    <Content Remove="Themes\TuTienda\TuTiendaViewLocationExpander.cs" />
 
     <None Update="Areas\Admin\sitemap.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

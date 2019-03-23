@@ -1,5 +1,5 @@
 ﻿@model TopMenuModel
-<ul class="top-menu">
+<ul class="category-navigation-list sticky-flyout">
     @await Component.InvokeAsync("Widget", new { widgetZone = "header_menu_before" })
     @if (Model.DisplayHomePageMenuItem)
     {
